@@ -13,8 +13,6 @@ def render_frame(x, y):
     delay(0.01)
 
 def run_circle():
-    print('CIRCLE')
-
     # 일단 그림을 그리자
 
     cx, cy, r = 400, 300, 200
@@ -25,8 +23,6 @@ def run_circle():
         render_frame(x, y)
 
 def run_rectangle():
-    print('RECTANGLE')
-
     for x in range(50,750+1,10):
         render_frame(x, 90)
 
@@ -38,8 +34,6 @@ def run_rectangle():
 
     for y in range(550,90-1,-10):
         render_frame(50, y)
-        
-    pass
 
 while True:
     run_rectangle()
