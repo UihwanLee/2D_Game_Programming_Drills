@@ -21,11 +21,19 @@ def Init_Anim():
 
     # anim_IDLE
     anim_frame_IDLE = anim_frame()
-    anim_frame_IDLE.left = [82, 105, 120, 150, 120, 105, 82]
-    anim_frame_IDLE.bottom = [420, 420, 420, 420, 420, 420, 420]
-    anim_frame_IDLE.width = [20, 20, 30, 30, 30, 20, 20]
-    anim_frame_IDLE.height = [60, 60, 60, 60, 60, 60, 60]
+    anim_frame_IDLE.left = [82, 105, 120, 150, 120, 105]
+    anim_frame_IDLE.bottom = [420, 420, 420, 420, 420, 420]
+    anim_frame_IDLE.width = [20, 20, 30, 30, 30, 20]
+    anim_frame_IDLE.height = [60, 60, 60, 60, 60, 60]
     anim_frame_list.append(anim_frame_IDLE)
+
+    # anim_walking
+    anim_frame_walking = anim_frame()
+    anim_frame_walking.left = [205, 227, 250, 281, 310, 335, 357, 386, 415, 445]
+    anim_frame_walking.bottom = [420, 420, 420, 420, 420, 420, 420, 420, 420, 420]
+    anim_frame_walking.width = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+    anim_frame_walking.height = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
+    anim_frame_list.append(anim_frame_walking)
 
 def handle_events():
     global running
