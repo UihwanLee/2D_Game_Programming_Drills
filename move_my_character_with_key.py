@@ -13,10 +13,14 @@ class anim_frame():
     width = []
     height = []
 
+# 글로벌 변수
 running = True
 anim_frame_list = []
 dir = 0
 pos_x = 100
+frame_walking = 0
+is_walking = False
+is_running = False
 
 def Init_Anim():
     global anim_frame_list
@@ -46,7 +50,7 @@ def Init_Anim():
     anim_frame_list.append(anim_frame_running)
 
 def handle_events():
-    global running, dir
+    global running, dir, is_running, is_walking
 
     events = get_events()
     for event in events:
@@ -55,11 +59,13 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 running = False
-            elif event.key == SDLK_RIGHT:
-                dir += 1
-            elif event.key == SDLK_LEFT:
-                dir -= 1
+            elif event.key == SDLK_RIGHT or event.key == SDLK_LEFT:
+                is_walking = True
+                if event.key == SDLK_RIGHT : dir += 1
+                elif event.key == SDLK_LEFT: dir -= 1
         elif event.type == SDL_KEYUP:
+            is_walking = False
+            is_running = False
             if event.key == SDLK_RIGHT:
                 dir -= 1
             elif event.key == SDLK_RIGHT:
@@ -70,11 +76,15 @@ def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time)
     TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     Sprite_Sheet.clip_draw(left[frame], bottom[frame], width[frame], height[frame], x, y, xScale, yScale)
     update_canvas()
+    handle_events()
     delay(time)
 
 
 def anim_IDLE():
-    global anim_frame_list, pos_x
+    global anim_frame_list, pos_x, is_walking, is_running
+
+    # 걷거나 뛰는 중이면 반환
+    if is_walking or is_running : return
 
     anim = anim_frame_list[0]
     frame = 0
@@ -84,9 +94,10 @@ def anim_IDLE():
 
 
 
-frame_walking = 0
 def anim_walking():
-    global anim_frame_list, frame_walking, pos_x, dir
+    global anim_frame_list, frame_walking, pos_x, dir, is_walking
+
+    if not is_walking : return
 
     anim = anim_frame_list[1]
     frame = 0
@@ -96,7 +107,9 @@ def anim_walking():
     pos_x += dir * 20
 
 def anim_running():
-    global anim_frame_list
+    global anim_frame_list, dir, is_running
+
+    if not is_running : return
 
     anim = anim_frame_list[2]
     frame = 0
@@ -106,7 +119,7 @@ def anim_running():
 
 Init_Anim()
 while running:
-    #anim_IDLE()
+    anim_IDLE()
     anim_walking()
     #anim_running()
     handle_events()
