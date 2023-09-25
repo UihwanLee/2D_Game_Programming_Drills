@@ -96,6 +96,14 @@ def handle_events():
             if event.type == SDL_KEYUP and event.key == SDLK_LSHIFT:
                 is_running = False
 
+# 충돌체크
+def check_collision(pos, dist, MAX_DIST):
+
+    if pos + dist <= 0 or pos + dist >= MAX_DIST:
+        return True
+
+    return False
+
 def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time, dir):
     clear_canvas()
     TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
@@ -128,6 +136,9 @@ def anim_walking():
     if not is_walking : return
     if is_running : return
 
+    if check_collision(pos_x, dir_x * 20, TUK_WIDTH) or check_collision(pos_y, dir_y * 20, TUK_HEIGHT):
+        return
+
     anim = anim_frame_list[1]
 
     render_frame(frame_walking, anim.left, anim.bottom, anim.width, anim.height, pos_x, pos_y, 100, 100, 0.2, is_forward)
@@ -139,6 +150,9 @@ def anim_running():
     global anim_frame_list, frame_running, dir_x, dir_y, pos_x, pos_y, is_running, is_forward
 
     if not is_running : return
+
+    if check_collision(pos_x, dir_x * 40, TUK_WIDTH) or check_collision(pos_y, dir_y * 40, TUK_HEIGHT):
+        return
 
     anim = anim_frame_list[2]
 
