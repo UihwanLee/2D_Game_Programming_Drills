@@ -37,10 +37,10 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
-def render_frame(frame, left, bottom, width, height, x, y, time):
+def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time):
     clear_canvas()
     TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    Sprite_Sheet.clip_draw(left[frame], bottom[frame], width[frame], height[frame], x, y)
+    Sprite_Sheet.clip_draw(left[frame], bottom[frame], width[frame], height[frame], x, y, xScale, yScale)
     update_canvas()
     delay(time)
 
@@ -52,7 +52,7 @@ def anim_IDLE():
     frame = 0
 
     for frame in range(0, len(anim.left), 1):
-        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, 90, 500, 0.5)
+        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, 90, 500, 100, 100, 0.5)
 
 
 def anim_walking():
