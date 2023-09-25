@@ -4,10 +4,10 @@ open_canvas()
 
 sprite_sheet = load_image('sprite_sheet.png')
 
-frame_left =   []
-frame_bottom = []
-frame_width = []
-frame_height = []
+frame_left =   [205, 227, 250, 281, 310, 335, 357, 386, 415, 445]
+frame_bottom = [420, 420, 420, 420, 420, 420, 420, 420, 420, 420]
+frame_width = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+frame_height = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
 
 frame = 0
 
