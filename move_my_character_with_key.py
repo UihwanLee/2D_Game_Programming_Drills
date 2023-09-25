@@ -8,6 +8,9 @@ Sprite_Sheet = load_image('sprite_sheet.png')
 
 running = True
 
+def Init_Anim():
+    pass
+
 def handle_events():
     global running
 
@@ -18,15 +21,20 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
+def anim_IDLE():
+    pass
+
 def anim_walking():
     pass
 
 def anim_running():
     pass
 
+Init_Anim()
 while running:
     clear_canvas()
     TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    anim_IDLE()
     anim_walking()
     anim_running()
     update_canvas()
