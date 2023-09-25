@@ -35,6 +35,14 @@ def Init_Anim():
     anim_frame_walking.height = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
     anim_frame_list.append(anim_frame_walking)
 
+    # anim_running
+    anim_frame_running = anim_frame()
+    anim_frame_running.left =[135, 166, 200, 235, 269, 293, 321, 350, 387, 419, 444, 473, 505]
+    anim_frame_running.bottom = [355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355, 355]
+    anim_frame_running.width = [30, 30, 35, 35, 30, 30, 35, 35, 35, 35, 35, 35, 35]
+    anim_frame_running.height = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
+    anim_frame_list.append(anim_frame_running)
+
 def handle_events():
     global running
 
