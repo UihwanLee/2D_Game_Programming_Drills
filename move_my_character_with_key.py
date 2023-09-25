@@ -64,14 +64,20 @@ def anim_IDLE():
 
 
 def anim_walking():
-    pass
+    global  anim_frame_list
+
+    anim = anim_frame_list[1]
+    frame = 0
+
+    for frame in range(0, len(anim.left), 1):
+        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, 90, 500, 100, 100, 0.2)
 
 def anim_running():
     pass
 
 Init_Anim()
 while running:
-    anim_IDLE()
+    #anim_IDLE()
     anim_walking()
     anim_running()
     handle_events()
