@@ -22,9 +22,9 @@ def Init_Anim():
     # anim_IDLE
     anim_frame_IDLE = anim_frame()
     anim_frame_IDLE.left = [82, 105, 120, 150, 120, 105, 82]
-    anim_frame_IDLE.bottom = [480, 480, 480, 480, 480, 480, 480]
-    anim_frame_IDLE.width = [45, 45, 45, 48, 45, 45, 45]
-    anim_frame_IDLE.height = [80, 80, 80, 80, 80, 80, 80]
+    anim_frame_IDLE.bottom = [420, 420, 420, 420, 420, 420, 420]
+    anim_frame_IDLE.width = [20, 20, 30, 30, 30, 20, 20]
+    anim_frame_IDLE.height = [60, 60, 60, 60, 60, 60, 60]
     anim_frame_list.append(anim_frame_IDLE)
 
 def handle_events():
@@ -46,7 +46,14 @@ def render_frame(frame, left, bottom, width, height, x, y):
 
 
 def anim_IDLE():
-    pass
+    global anim_frame_list
+
+    anim = anim_frame_list[0]
+    frame = 0
+
+    for frame in range(0, len(anim.left), 1):
+        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, 90, 500)
+
 
 def anim_walking():
     pass
@@ -56,12 +63,9 @@ def anim_running():
 
 Init_Anim()
 while running:
-    clear_canvas()
-    TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     anim_IDLE()
     anim_walking()
     anim_running()
-    update_canvas()
     handle_events()
 
 close_canvas()
