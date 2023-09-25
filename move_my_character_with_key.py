@@ -21,6 +21,7 @@ dir_y = 0
 pos_x = 100
 pos_y = 500
 frame_walking = 0
+frame_running = 0
 is_forward = True
 is_walking = False
 is_running = False
@@ -74,17 +75,26 @@ def handle_events():
                     dir_y += 1
                 elif event.key == SDLK_DOWN:
                     dir_y -= 1
+
+            if is_walking:
+                if event.key == SDLK_LSHIFT:
+                    is_running = True
+
         elif event.type == SDL_KEYUP:
             is_walking = False
             is_running = False
             if event.key == SDLK_RIGHT:
-                dir_x -= 1
+                dir_x = 0
             elif event.key == SDLK_RIGHT:
-                dir_x += 1
+                dir_x = 0
             elif event.key == SDLK_UP:
-                dir_y -= 1
+                dir_y = 0
             elif event.key == SDLK_DOWN:
-                dir_y += 1
+                dir_y = 0
+
+        if is_running:
+            if event.type == SDL_KEYUP and event.key == SDLK_LSHIFT:
+                is_running = False
 
 def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time, dir):
     clear_canvas()
@@ -116,9 +126,9 @@ def anim_walking():
     global anim_frame_list, frame_walking, pos_x, pos_y, dir_x, dir_y, is_walking, is_forward
 
     if not is_walking : return
+    if is_running : return
 
     anim = anim_frame_list[1]
-    frame = 0
 
     render_frame(frame_walking, anim.left, anim.bottom, anim.width, anim.height, pos_x, pos_y, 100, 100, 0.2, is_forward)
     frame_walking = (frame_walking + 1) % len(anim.left)
@@ -126,21 +136,22 @@ def anim_walking():
     pos_y += dir_y * 20
 
 def anim_running():
-    global anim_frame_list, dir_x, is_running
+    global anim_frame_list, frame_running, dir_x, dir_y, pos_x, pos_y, is_running, is_forward
 
     if not is_running : return
 
     anim = anim_frame_list[2]
-    frame = 0
 
-    for frame in range(0, len(anim.left), 1):
-        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, 90, 500, 100, 100, 0.2)
+    render_frame(frame_running, anim.left, anim.bottom, anim.width, anim.height, pos_x, pos_y, 100, 100, 0.2, is_forward)
+    frame_running = (frame_running + 1) % len(anim.left)
+    pos_x += dir_x * 40
+    pos_y += dir_y * 40
 
 Init_Anim()
 while running:
     anim_IDLE()
     anim_walking()
-    #anim_running()
+    anim_running()
     handle_events()
 
 close_canvas()
