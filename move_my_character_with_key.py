@@ -17,7 +17,15 @@ running = True
 anim_frame_list = []
 
 def Init_Anim():
-    pass
+    global anim_frame_list
+
+    # anim_IDLE
+    anim_frame_IDLE = anim_frame()
+    anim_frame_IDLE.left = [82, 105, 120, 150, 120, 105, 82]
+    anim_frame_IDLE.bottom = [480, 480, 480, 480, 480, 480, 480]
+    anim_frame_IDLE.width = [45, 45, 45, 48, 45, 45, 45]
+    anim_frame_IDLE.height = [80, 80, 80, 80, 80, 80, 80]
+    anim_frame_list.append(anim_frame_IDLE)
 
 def handle_events():
     global running
