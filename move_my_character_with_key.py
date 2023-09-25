@@ -37,6 +37,14 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
+def render_frame(frame, left, bottom, width, height, x, y):
+    clear_canvas()
+    TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    Sprite_Sheet.clip_draw(left[frame], bottom[frame], width[frame], height[frame], x, y)
+    update_canvas()
+    delay(0.05)
+
+
 def anim_IDLE():
     pass
 
