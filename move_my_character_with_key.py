@@ -7,6 +7,14 @@ TUK_GROUND = load_image('TUK_GROUND.png')
 Sprite_Sheet = load_image('sprite_sheet.png')
 
 
+'''
+    <조작키>
+    방향키 -> 걷기
+    방향키 + 왼쪽 SHIFT -> 뛰기
+'''
+
+
+# 애니메이션 프레임 구조체
 class anim_frame():
     left = []
     bottom = []
@@ -26,6 +34,7 @@ is_forward = True
 is_walking = False
 is_running = False
 
+# 프레임 리스트 초기화
 def Init_Anim():
     global anim_frame_list
 
@@ -53,6 +62,7 @@ def Init_Anim():
     anim_frame_running.height = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
     anim_frame_list.append(anim_frame_running)
 
+# input 처리 함수
 def handle_events():
     global running, dir_x, dir_y, is_forward, is_running, is_walking
 
@@ -104,6 +114,7 @@ def check_collision(pos, dist, MAX_DIST):
 
     return False
 
+# 애니메이션 프레임 구동
 def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time, dir):
     clear_canvas()
     TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
