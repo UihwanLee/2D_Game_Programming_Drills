@@ -16,9 +16,10 @@ class anim_frame():
 # 글로벌 변수
 running = True
 anim_frame_list = []
-dir = 0
+dir_x = 0
 pos_x = 100
 frame_walking = 0
+is_forward = True
 is_walking = False
 is_running = False
 
@@ -50,7 +51,7 @@ def Init_Anim():
     anim_frame_list.append(anim_frame_running)
 
 def handle_events():
-    global running, dir, is_running, is_walking
+    global running, dir_x, is_forward, is_running, is_walking
 
     events = get_events()
     for event in events:
@@ -61,27 +62,35 @@ def handle_events():
                 running = False
             elif event.key == SDLK_RIGHT or event.key == SDLK_LEFT:
                 is_walking = True
-                if event.key == SDLK_RIGHT : dir += 1
-                elif event.key == SDLK_LEFT: dir -= 1
+                if event.key == SDLK_RIGHT :
+                    is_forward = True
+                    dir_x += 1
+                elif event.key == SDLK_LEFT:
+                    is_forward = False
+                    dir_x -= 1
         elif event.type == SDL_KEYUP:
             is_walking = False
             is_running = False
             if event.key == SDLK_RIGHT:
-                dir -= 1
+                dir_x -= 1
             elif event.key == SDLK_RIGHT:
-                dir += 1
+                dir_x += 1
 
-def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time):
+def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time, dir):
     clear_canvas()
     TUK_GROUND.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    Sprite_Sheet.clip_draw(left[frame], bottom[frame], width[frame], height[frame], x, y, xScale, yScale)
+    # dir에 따른 방향 조정
+    if dir :
+        Sprite_Sheet.clip_draw(left[frame], bottom[frame], width[frame], height[frame], x, y, xScale, yScale)
+    else :
+        Sprite_Sheet.clip_composite_draw(left[frame], bottom[frame], width[frame], height[frame], 0, 'h', x, y, xScale, yScale)
     update_canvas()
     handle_events()
     delay(time)
 
 
 def anim_IDLE():
-    global anim_frame_list, pos_x, is_walking, is_running
+    global anim_frame_list, pos_x, is_walking, is_running, is_forward
 
     # 걷거나 뛰는 중이면 반환
     if is_walking or is_running : return
@@ -90,24 +99,23 @@ def anim_IDLE():
     frame = 0
 
     for frame in range(0, len(anim.left), 1):
-        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, pos_x, 500, 100, 100, 0.5)
-
+        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, pos_x, 500, 100, 100, 0.2, is_forward)
 
 
 def anim_walking():
-    global anim_frame_list, frame_walking, pos_x, dir, is_walking
+    global anim_frame_list, frame_walking, pos_x, dir_x, is_walking, is_forward
 
     if not is_walking : return
 
     anim = anim_frame_list[1]
     frame = 0
 
-    render_frame(frame_walking, anim.left, anim.bottom, anim.width, anim.height, pos_x, 500, 100, 100, 0.2)
+    render_frame(frame_walking, anim.left, anim.bottom, anim.width, anim.height, pos_x, 500, 100, 100, 0.2, is_forward)
     frame_walking = (frame_walking + 1) % len(anim.left)
-    pos_x += dir * 20
+    pos_x += dir_x * 20
 
 def anim_running():
-    global anim_frame_list, dir, is_running
+    global anim_frame_list, dir_x, is_running
 
     if not is_running : return
 
