@@ -17,7 +17,9 @@ class anim_frame():
 running = True
 anim_frame_list = []
 dir_x = 0
+dir_y = 0
 pos_x = 100
+pos_y = 500
 frame_walking = 0
 is_forward = True
 is_walking = False
@@ -51,7 +53,7 @@ def Init_Anim():
     anim_frame_list.append(anim_frame_running)
 
 def handle_events():
-    global running, dir_x, is_forward, is_running, is_walking
+    global running, dir_x, dir_y, is_forward, is_running, is_walking
 
     events = get_events()
     for event in events:
@@ -60,7 +62,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 running = False
-            elif event.key == SDLK_RIGHT or event.key == SDLK_LEFT:
+            elif event.key == SDLK_RIGHT or event.key == SDLK_LEFT or event.key == SDLK_UP or event.key == SDLK_DOWN:
                 is_walking = True
                 if event.key == SDLK_RIGHT :
                     is_forward = True
@@ -68,6 +70,10 @@ def handle_events():
                 elif event.key == SDLK_LEFT:
                     is_forward = False
                     dir_x -= 1
+                elif event.key == SDLK_UP:
+                    dir_y += 1
+                elif event.key == SDLK_DOWN:
+                    dir_y -= 1
         elif event.type == SDL_KEYUP:
             is_walking = False
             is_running = False
@@ -75,6 +81,10 @@ def handle_events():
                 dir_x -= 1
             elif event.key == SDLK_RIGHT:
                 dir_x += 1
+            elif event.key == SDLK_UP:
+                dir_y -= 1
+            elif event.key == SDLK_DOWN:
+                dir_y += 1
 
 def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time, dir):
     clear_canvas()
@@ -90,7 +100,7 @@ def render_frame(frame, left, bottom, width, height, x, y, xScale, yScale, time,
 
 
 def anim_IDLE():
-    global anim_frame_list, pos_x, is_walking, is_running, is_forward
+    global anim_frame_list, pos_x, pos_y, is_walking, is_running, is_forward
 
     # 걷거나 뛰는 중이면 반환
     if is_walking or is_running : return
@@ -99,20 +109,21 @@ def anim_IDLE():
     frame = 0
 
     for frame in range(0, len(anim.left), 1):
-        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, pos_x, 500, 100, 100, 0.2, is_forward)
+        render_frame(frame, anim.left, anim.bottom, anim.width, anim.height, pos_x, pos_y, 100, 100, 0.2, is_forward)
 
 
 def anim_walking():
-    global anim_frame_list, frame_walking, pos_x, dir_x, is_walking, is_forward
+    global anim_frame_list, frame_walking, pos_x, pos_y, dir_x, dir_y, is_walking, is_forward
 
     if not is_walking : return
 
     anim = anim_frame_list[1]
     frame = 0
 
-    render_frame(frame_walking, anim.left, anim.bottom, anim.width, anim.height, pos_x, 500, 100, 100, 0.2, is_forward)
+    render_frame(frame_walking, anim.left, anim.bottom, anim.width, anim.height, pos_x, pos_y, 100, 100, 0.2, is_forward)
     frame_walking = (frame_walking + 1) % len(anim.left)
     pos_x += dir_x * 20
+    pos_y += dir_y * 20
 
 def anim_running():
     global anim_frame_list, dir_x, is_running
