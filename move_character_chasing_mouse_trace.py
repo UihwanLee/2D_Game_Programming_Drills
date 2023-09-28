@@ -34,14 +34,23 @@ def handle_events():
             running = False
     pass
 
-while running:
-    clear_canvas()
+def draw_mouse_trace():
+    global mouse_trace
+
+    for trace in mouse_trace:
+        mouse.draw(trace[0], trace[1])
+def render_frame():
+    global frame, x, y
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    #character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+    # character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
     mouse.draw(x, y)
+    draw_mouse_trace()
     update_canvas()
     frame = (frame + 1) % 8
 
+while running:
+    clear_canvas()
+    render_frame()
     handle_events()
 
 close_canvas()
