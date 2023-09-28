@@ -69,13 +69,24 @@ def update_character_pos(p1, p2):
     x = (1 - t) * x1 + t * x2
     y = (1 - t) * y1 + t * y2
 
+
+# 마우스와 캐릭터 위치관계에 따른 이동 방향 설정
+def set_character_dir():
+    global x, y, cur_pos, mouse_points
+
+    if cur_pos[0] <= mouse_points[0]:
+        character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y, 100, 100)
+    else:
+        character.clip_composite_draw(frame * 100, 100 * 1, 100, 100, 0, 'h', x, y, 100, 100)
+
+# 마우스, 캐릭터 그리기
 def render_frame():
     global frame
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     generate_random_mouse()
     mouse.draw(mouse_points[0], mouse_points[1])
     update_character_pos(mouse_points[0], mouse_points[1])
-    character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+    set_character_dir()
     update_canvas()
     frame = (frame + 1) % 8
 
