@@ -7,6 +7,17 @@ TUK_ground = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
 mouse = load_image('hand_arrow.png')
 
+# 글로벌 변수
+running = True
+x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
+frame = 0
+hide_cursor()
+
+mouse_trace = [] # 마우스 흔적 리스트
+
+def generate_mouse_trace(x, y):
+    mouse_trace.append((x, y))
+
 def handle_events():
     global running
     global x, y
@@ -16,16 +27,12 @@ def handle_events():
             running = False
         elif event.type == SDL_MOUSEMOTION:
             x, y = event.x, TUK_HEIGHT - 1 - event.y
+        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT: # 마우스 왼쪽 버튼 클릭
+            generate_mouse_trace(event.x, TUK_HEIGHT - 1 - event.y)
+            print(mouse_trace)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
-
-
-
-running = True
-x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
-frame = 0
-hide_cursor()
 
 while running:
     clear_canvas()
