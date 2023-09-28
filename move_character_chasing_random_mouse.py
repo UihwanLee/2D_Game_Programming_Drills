@@ -69,8 +69,8 @@ def update_character_pos(p1, p2):
     x = (1 - t) * x1 + t * x2
     y = (1 - t) * y1 + t * y2
 
-while running:
-    clear_canvas()
+def render_frame():
+    global frame
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     generate_random_mouse()
     mouse.draw(mouse_points[0], mouse_points[1])
@@ -78,6 +78,10 @@ while running:
     character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
     update_canvas()
     frame = (frame + 1) % 8
+
+while running:
+    clear_canvas()
+    render_frame()
     handle_events()
 
 close_canvas()
