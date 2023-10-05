@@ -29,14 +29,15 @@ class Boy:
 class Ball:
     def __init__(self):
         self.x, self.y = random.randint(100, 700), 599
-        self.image = [load_image('ball21x21.png'), load_image('ball41x41.png')]
+        self.imageList = [load_image('ball21x21.png'), load_image('ball41x41.png')]
+        self.image = self.imageList[random.randint(0, 1)]
 
     def update(self):
         self.y -= 5
 
     def draw(self):
         idx = random.randint(0, 1)
-        self.image[idx].draw(self.x, self.y)
+        self.image.draw(self.x, self.y)
 
 
 def handle_events():
@@ -53,6 +54,7 @@ def reset_world():
     global running
     global grass
     global team
+    global balls
     global world
 
     running = True
@@ -63,6 +65,9 @@ def reset_world():
 
     team = [Boy() for i in range(11)]
     world += team
+
+    balls = [Ball() for i in range(20)]
+    world += balls
 
 
 def update_world():
