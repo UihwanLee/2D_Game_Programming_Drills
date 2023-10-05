@@ -26,6 +26,7 @@ class Boy:
     def draw(self):
         self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
+
 class Ball:
     def __init__(self):
         self.x, self.y = random.randint(100, 700), 599
@@ -40,7 +41,6 @@ class Ball:
             self.y -= self.speed
 
     def draw(self):
-        idx = random.randint(0, 1)
         self.image.draw(self.x, self.y)
 
 
