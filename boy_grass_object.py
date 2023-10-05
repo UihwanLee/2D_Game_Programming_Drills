@@ -30,11 +30,13 @@ class Ball:
     def __init__(self):
         self.x, self.y = random.randint(100, 700), 599
         self.imageList = [load_image('ball21x21.png'), load_image('ball41x41.png')]
-        self.image = self.imageList[random.randint(0, 1)]
+        self.idx = random.randint(0, 1)
+        self.image = self.imageList[self.idx]
         self.speed = random.randint(2, 10)
 
     def update(self):
-        if self.y > 70:
+        min_y = 70 if self.idx == 1 else 60
+        if self.y > min_y:
             self.y -= self.speed
 
     def draw(self):
