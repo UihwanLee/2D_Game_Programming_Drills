@@ -55,10 +55,10 @@ class AutoRun:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        if boy.x > 800 or boy.x < 0: # 벽 끝에 닿았을 때
+        if boy.x > 790 or boy.x < 10: # 벽 끝에 닿았을 때
             boy.dir *= -1
             boy.action = 0 if boy.dir == -1 else 1
-        boy.x += boy.dir * boy.speed
+        boy.x += boy.dir * boy.autoSpeed
         print('AutoRun Doing')
         pass
 
@@ -83,7 +83,7 @@ class Run:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        boy.x += boy.dir * 5
+        boy.x += boy.dir * boy.speed
 
     @staticmethod
     def draw(boy):
@@ -175,6 +175,7 @@ class Boy:
         self.frame = 0
         self.dir = 0
         self.speed = 5
+        self.autoSpeed = 10
         self.action = 3
         self.image = load_image('animation_sheet.png')
         self.state_machine = StateMachine(self)
