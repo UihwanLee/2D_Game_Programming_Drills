@@ -40,14 +40,17 @@ class AutoRun:
 
     @staticmethod
     def enter(boy, e):
+        print('Enter AutoRun')
         pass
 
     @staticmethod
     def exit(boy, e):
+        print('Exit AutoRun')
         pass
 
     @staticmethod
     def do(boy, e):
+        print('AutoRun Doing')
         pass
 
     @staticmethod
