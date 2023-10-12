@@ -55,6 +55,9 @@ class AutoRun:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
+        if boy.x > 800 or boy.x < 0: # 벽 끝에 닿았을 때
+            boy.dir *= -1
+            boy.action = 0 if boy.dir == -1 else 1
         boy.x += boy.dir * boy.speed
         print('AutoRun Doing')
         pass
