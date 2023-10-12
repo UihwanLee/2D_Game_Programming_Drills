@@ -40,6 +40,10 @@ class AutoRun:
 
     @staticmethod
     def enter(boy, e):
+        if boy.action == 0 or boy.action == 2:
+            boy.dir, boy.action = -1, 0
+        elif boy.action == 1 or boy.action == 3:
+            boy.dir, boy.action = 1, 1
         print('Enter AutoRun')
         pass
 
@@ -50,13 +54,14 @@ class AutoRun:
 
     @staticmethod
     def do(boy):
+        boy.frame = (boy.frame + 1) % 8
+        boy.x += boy.dir * boy.speed
         print('AutoRun Doing')
         pass
 
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y + 30, 200, 200)
-        pass
 
 
 class Run:
@@ -166,6 +171,7 @@ class Boy:
         self.x, self.y = 400, 90
         self.frame = 0
         self.dir = 0
+        self.speed = 5
         self.action = 3
         self.image = load_image('animation_sheet.png')
         self.state_machine = StateMachine(self)
