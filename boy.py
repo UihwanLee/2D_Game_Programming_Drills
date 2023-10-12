@@ -49,7 +49,7 @@ class AutoRun:
         pass
 
     @staticmethod
-    def do(boy, e):
+    def do(boy):
         print('AutoRun Doing')
         pass
 
@@ -135,8 +135,9 @@ class StateMachine:
         self.boy = boy
         self.cur_state = Sleep
         self.table = {
-            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep},
+            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, key_a_down: AutoRun},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
+            AutoRun: {},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
         }
 
