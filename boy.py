@@ -44,6 +44,7 @@ class AutoRun:
             boy.dir, boy.action = -1, 0
         elif boy.action == 1 or boy.action == 3:
             boy.dir, boy.action = 1, 1
+        boy.start_time = get_time()  # 경과 시간
         print('Enter AutoRun')
         pass
 
@@ -59,6 +60,9 @@ class AutoRun:
             boy.dir *= -1
             boy.action = 0 if boy.dir == -1 else 1
         boy.x += boy.dir * boy.autoSpeed
+
+        if get_time() - boy.start_time > 5:
+            boy.state_machine.handle_event(('TIME_OUT', 5))
         print('AutoRun Doing')
         pass
 
@@ -146,7 +150,7 @@ class StateMachine:
         self.table = {
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, key_a_down: AutoRun},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
-            AutoRun: {},
+            AutoRun: {time_out_5: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
         }
 
