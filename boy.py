@@ -166,4 +166,7 @@ class Boy:
 
 
     def fire_ball(self):
-        print('FIRE BALL')
+        if self.face_dir == 1:
+            print('FIRE BALL to Right')
+        elif self.face_dir == -1:
+            print('FIRE BALL to Left')
