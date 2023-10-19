@@ -30,10 +30,10 @@ def create_world():
     running = True
 
     grass = Grass()
-    game_world.add(grass)
+    game_world.add_object(grass)
 
     boy = Boy()
-    game_world.add(boy)
+    game_world.add_object(boy)
 
 
 
