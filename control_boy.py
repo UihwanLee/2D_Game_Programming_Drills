@@ -20,7 +20,7 @@ def handle_events():
             boy.handle_event(event)
 
 
-def reset_world():
+def create_world():
     global running
     global grass
     global team
@@ -28,6 +28,7 @@ def reset_world():
     global boy
 
     running = True
+
     world = []
 
     grass = Grass()
@@ -52,7 +53,7 @@ def render_world():
 
 
 open_canvas()
-reset_world()
+create_world()
 # game loop
 while running:
     handle_events()
