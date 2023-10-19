@@ -29,3 +29,6 @@ def remove_object(o):
     for layer in objects:
         if o in layer:
             layer.remove(o)
+            return
+
+    raise ValueError('CRITICAL ERROR O IS NOT EXIST')
