@@ -4,6 +4,7 @@ import game_framework
 import game_world
 from grass import Grass
 from boy import Boy
+from bird import Bird
 
 # boy = None
 
@@ -20,6 +21,7 @@ def handle_events():
 def init():
     global grass
     global boy
+    global bird
 
     running = True
 
@@ -28,6 +30,36 @@ def init():
 
     boy = Boy()
     game_world.add_object(boy, 1)
+
+    bird = Bird(400, 2)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(800, 4)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(600, 3)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(1200, 1)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(1500, 7)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(1800, 5)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(200, 1)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(2000, 5)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(1400, 4)
+    game_world.add_object(bird, 1)
+
+    bird = Bird(500, 3)
+    game_world.add_object(bird, 1)
 
 
 def finish():
