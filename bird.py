@@ -52,7 +52,7 @@ FRAMES_PER_ACTION = 4
 # Bird Fly Action Speed
 TIME_PER_ACTION_FLY = 0.5
 ACTION_PER_TIME_FLY = 1.0 / TIME_PER_ACTION_FLY
-FRAMES_PER_ACTION_FLY = 5
+FRAMES_PER_ACTION_FLY = 4
 
 # Bird Size
 BIRD_SIZE = 80
@@ -87,7 +87,7 @@ class Fly:
 
     @staticmethod
     def enter(bird, e):
-        bird.dir, bird.action, bird.face_dir = -1, 1, -1
+        bird.dir, bird.action, bird.face_dir = -1, 0, -1
         temp = random.randint(1, 2)
         if temp == 1:
             bird.dir = 1.0
@@ -101,7 +101,7 @@ class Fly:
 
     @staticmethod
     def do(bird):
-        bird.frame = (bird.frame + FRAMES_PER_ACTION_FLY * ACTION_PER_TIME_FLY * game_framework.frame_time) % 5
+        bird.frame = (bird.frame + FRAMES_PER_ACTION_FLY * ACTION_PER_TIME_FLY * game_framework.frame_time) % 4
         bird.x += bird.dir * RUN_SPEED_PPS * game_framework.frame_time
         if get_time() - bird.wait_time > bird.fly_time:
             bird.dir *= -1.0
@@ -112,7 +112,7 @@ class Fly:
         if bird.dir == 1:
             bird.image.clip_draw(int(bird.frame) * 183, 150, 170, 150, bird.x, bird.y, BIRD_SIZE, BIRD_SIZE)
         else:
-            bird.image.clip_composite_draw(int(bird.frame) * 183, 150, 170, 150, 0, 'h', bird.x, bird.y, BIRD_SIZE, BIRD_SIZE)
+            bird.image.clip_composite_draw(int(bird.frame) * 183, bird.action * 101, 170, 150, 0, 'h', bird.x, bird.y, BIRD_SIZE, BIRD_SIZE)
 
 class StateMachine:
     def __init__(self, bird):
