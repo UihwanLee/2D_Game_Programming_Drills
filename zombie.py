@@ -74,7 +74,6 @@ class Zombie:
         pass
 
     def decrease_size(self):
-        self.decrease_count -= 1
         self.size_x = 100
         self.size_y = 100
         self.y = 100
