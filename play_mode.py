@@ -46,6 +46,8 @@ def init():
     zombies = [Zombie() for _ in range(5)]
     game_world.add_objects(zombies, 1)
 
+
+
 def finish():
     game_world.clear()
     pass

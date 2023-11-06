@@ -33,6 +33,12 @@ class Zombie:
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
 
+        # 충돌박스 변수
+        self.bb_r_x = 50
+        self.bb_l_x = 50
+        self.bb_b_y = 100
+        self.bb_t_y = 70
+
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
@@ -50,6 +56,11 @@ class Zombie:
             Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 200, 200)
         else:
             Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, 200, 200)
+        draw_rectangle(*self.get_bb())  # 튜플을 풀어 해쳐서 각각 인자로 전달.
+
+
+    def get_bb(self):
+        return self.x-self.bb_l_x, self.y-self.bb_b_y, self.x+self.bb_r_x, self.y+self.bb_t_y # 값 4개짜리 튜플
 
 
     def handle_event(self, event):
