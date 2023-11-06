@@ -211,3 +211,7 @@ class Boy:
     # fill here
     def get_bb(self):
         return self.x-20, self.y-50, self.x+20, self.y+50 # 값 4개짜리 튜플
+
+    def handle_collision(self, group, other):
+        if group == 'boy:ball':
+            self.ball_count += 1

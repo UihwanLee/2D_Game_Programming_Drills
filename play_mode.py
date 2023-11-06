@@ -34,8 +34,13 @@ def init():
     # fill here
     # 축구공 바닥에 뿌리기
     global balls
-    balls = [ Ball(random.randint(0, 1600),60,0.0) for _ in range(30)]
+    balls = [Ball(random.randint(0, 1600),60,0.0) for _ in range(30)]
     game_world.add_objects(balls, 1)
+
+    # 충돌 상황을 등록... boy와 balls들의 충돌 상황을 등록.
+    game_world.add_collision_pair('boy:ball', boy, None)
+    for ball in balls:
+        game_world.add_collision_pair('boy:ball', None, ball)
 
 def finish():
     game_world.clear()
@@ -44,16 +49,17 @@ def finish():
 
 def update():
     game_world.update()
+    game_world.handle_collisions()
 
-    for ball in balls.copy():
-        if game_world.collide(boy, ball):
-            print('COLLISION boy:ball')
-            # 충돌 처리
-            # 볼은 없앤다.
-            balls.remove(ball)
-            game_world.remove_object(ball)
-            # 소년은 볼 카운트 증가
-            boy.ball_count += 1
+    # for ball in balls.copy():
+    #     if game_world.collide(boy, ball):
+    #         print('COLLISION boy:ball')
+    #         # 충돌 처리
+    #         # 볼은 없앤다.
+    #         balls.remove(ball)
+    #         game_world.remove_object(ball)
+    #         # 소년은 볼 카운트 증가
+    #         boy.ball_count += 1
 
 def draw():
     clear_canvas()
