@@ -38,6 +38,7 @@ def init():
     game_world.add_objects(balls, 1)
 
     # 충돌 상황을 등록... boy와 balls들의 충돌 상황을 등록.
+    game_world.add_collision_pair('boy:zombie', boy, None)
     game_world.add_collision_pair('boy:ball', boy, None)
     for ball in balls:
         game_world.add_collision_pair('boy:ball', None, ball)
@@ -48,6 +49,7 @@ def init():
 
     # 충돌 상황을 등록... balls와 Zombies들의 충돌 상황을 등록.
     for zombie in zombies:
+        game_world.add_collision_pair('boy:zombie', None, zombie)
         game_world.add_collision_pair('zombie:ball', zombie, None)
     for ball in balls:
         game_world.add_collision_pair('zombie:ball', None, ball)

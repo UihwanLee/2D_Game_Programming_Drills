@@ -83,4 +83,9 @@ def handle_collisions():
                 if collide(a, b):
                     a.handle_collision(group, b)
                     b.handle_collision(group, a)
+                else:
+                    if a.name == 'zombie':
+                        print(a.decrease_count)
+                        pass
+                        # a.decrease_count = 2
     return None

@@ -34,6 +34,8 @@ class Zombie:
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
 
+        self.name = 'zombie'
+
         # 사이즈
         self.size_x = 200
         self.size_y = 200
@@ -90,7 +92,7 @@ class Zombie:
                 self.decrease_count -= 1
                 if self.decrease_count == 1:
                     self.decrease_size()
-                if self.decrease_count <= -15:
+                if self.decrease_count <= -13:
                     game_world.remove_object(self)
 
 

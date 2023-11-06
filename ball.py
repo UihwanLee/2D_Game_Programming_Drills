@@ -9,6 +9,7 @@ class Ball:
         if Ball.image == None:
             Ball.image = load_image('ball21x21.png')
         self.x, self.y, self.velocity = x, y, velocity
+        self.name = 'ball'
 
     def draw(self):
         self.image.draw(self.x, self.y)

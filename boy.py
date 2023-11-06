@@ -190,6 +190,8 @@ class Boy:
         self.state_machine.start()
         self.ball_count = 10
 
+        self.name = 'boy'
+
 
     def fire_ball(self):
         if self.ball_count > 0:
@@ -214,5 +216,7 @@ class Boy:
         return self.x-20, self.y-50, self.x+20, self.y+50 # 값 4개짜리 튜플
 
     def handle_collision(self, group, other):
+        if group == 'boy:zombie':
+            game_framework.quit()
         if group == 'boy:ball':
             self.ball_count += 1
