@@ -1,6 +1,7 @@
 import random
 import math
 import game_framework
+import game_world
 
 from pico2d import *
 
@@ -33,12 +34,18 @@ class Zombie:
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
 
+        # 사이즈
+        self.size_x = 200
+        self.size_y = 200
+
         # 충돌박스 변수
         self.bb_r_x = 50
         self.bb_l_x = 50
         self.bb_b_y = 100
         self.bb_t_y = 70
 
+        # 삭제 변수
+        self.decrease_count = 2
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
@@ -53,9 +60,9 @@ class Zombie:
 
     def draw(self):
         if self.dir < 0:
-            Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 200, 200)
+            Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, self.size_x, self.size_y)
         else:
-            Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, 200, 200)
+            Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, self.size_x, self.size_y)
         draw_rectangle(*self.get_bb())  # 튜플을 풀어 해쳐서 각각 인자로 전달.
 
 
@@ -65,4 +72,23 @@ class Zombie:
 
     def handle_event(self, event):
         pass
+
+    def decrease_size(self):
+        self.decrease_count -= 1
+        self.size_x = 100
+        self.size_y = 100
+        self.y = 100
+
+        self.bb_r_x = 25
+        self.bb_l_x = 25
+        self.bb_b_y = 50
+        self.bb_t_y = 35
+        pass
+
+    def handle_collision(self, group, other):
+        if group == 'zombie:ball':
+            if other.get_y() > 60:
+                if self.decrease_count == 1:
+                    self.decrease_size()
+
 

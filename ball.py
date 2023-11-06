@@ -27,3 +27,6 @@ class Ball:
     def handle_collision(self, group, other):
         if group == 'boy:ball':
             game_world.remove_object(self)
+
+    def get_y(self):
+        return self.y
