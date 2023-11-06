@@ -206,7 +206,8 @@ class Boy:
     def draw(self):
         self.state_machine.draw()
         self.font.draw(self.x-10, self.y + 50, f'{self.ball_count:02d}', (255, 255, 0))
+        draw_rectangle(*self.get_bb()) # 튜플을 풀어 해쳐서 각각 인자로 전달.
 
     # fill here
     def get_bb(self):
-        return self.x-50, self.y-50, self.x+50, self.y+50 # 값 4개짜리 튜플
+        return self.x-20, self.y-50, self.x+20, self.y+50 # 값 4개짜리 튜플

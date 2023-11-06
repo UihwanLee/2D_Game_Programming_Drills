@@ -12,6 +12,7 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y)
+        draw_rectangle(*self.get_bb())  # 튜플을 풀어 해쳐서 각각 인자로 전달.
 
     def update(self):
         self.x += self.velocity * 100 * game_framework.frame_time
