@@ -45,11 +45,15 @@ def finish():
 def update():
     game_world.update()
 
-    # fill here
-
-    for ball in balls:
+    for ball in balls.copy():
         if game_world.collide(boy, ball):
             print('COLLISION boy:ball')
+            # 충돌 처리
+            # 볼은 없앤다.
+            balls.remove(ball)
+            game_world.remove_object(ball)
+            # 소년은 볼 카운트 증가
+            boy.ball_count += 1
 
 def draw():
     clear_canvas()
