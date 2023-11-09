@@ -92,7 +92,7 @@ class Zombie:
                 self.decrease_count -= 1
                 if self.decrease_count == 1:
                     self.decrease_size()
-                if self.decrease_count <= -13:
+                if self.decrease_count == 0:
                     game_world.remove_object(self)
 
 
