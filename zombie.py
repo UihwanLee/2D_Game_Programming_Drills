@@ -111,4 +111,8 @@ class Zombie:
         pass
 
     def build_behavior_tree(self):
-        pass
+        a1 = Action('Set target location', self.set_target_location, 500, 50) # action node 생성
+        a2 = Action('Move to', self.move_to)
+
+        root = SEQ_move_to_target_location = Sequence('Move to target location', a1, a2)
+        self.bt = BehaviorTree(root)
