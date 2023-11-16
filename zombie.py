@@ -177,3 +177,4 @@ class Zombie:
         # root = SEQ_patrol = Sequence('순찰', a5, a2)
 
         self.bt = BehaviorTree(root)
+
