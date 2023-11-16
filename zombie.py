@@ -76,17 +76,27 @@ class Zombie:
 
 
     def set_target_location(self, x=None, y=None):
-
-        pass
+        if not x or not y:
+            raise ValueError('위치 지정을 해야 합니다.')
+        self.tx, self.ty = x, y
+        return BehaviorTree.SUCCESS
 
     def distance_less_than(self, x1, y1, x2, y2, r):
-        pass
+        distance2 = (x1-x2)**2 + (y1-y2)**2
+        return distance2 < (r * PIXEL_PER_METER) **2
 
     def move_slightly_to(self, tx, ty):
-        pass
+        self.dir = math.atan2(ty-self.y, tx-self.x)
+        self.speed = RUN_SPEED_PPS
+        self.x += self.speed * math.cos(self.dir) * game_framework.frame_time
+        self.y += self.speed * math.sin(self.dir) * game_framework.frame_time
 
     def move_to(self, r=0.5):
-        pass
+        self.move_slightly_to(self.tx, self.ty)
+        if self.distance_less_than(self.tx, self.ty, self.x, self.y, r):
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.RUNNING
 
     def set_random_location(self):
         pass
