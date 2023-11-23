@@ -8,6 +8,7 @@ import game_world
 
 import server
 from boy import Boy
+from ball import Ball
 
 # fill here
 from background import FixedBackground as Background
@@ -34,6 +35,9 @@ def init():
 
     server.boy = Boy()
     game_world.add_object(server.boy, 1)
+
+    server.balls = [Ball() for _ in range(100)]
+    game_world.add_objects(server.balls, 1)
 
 
 def finish():
