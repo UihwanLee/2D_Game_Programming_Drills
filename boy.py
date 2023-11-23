@@ -58,7 +58,7 @@ def time_out(e):
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
+RUN_SPEED_KMPH = 40.0  # Km / Hour
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -284,13 +284,18 @@ class Boy:
 
     def update(self):
         self.state_machine.update()
+        self.x = clamp(50, self.x, server.background.w - 50)
+        self.y = clamp(50, self.y, server.background.h - 50)
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
         # fill here
-        sx, sy = get_canvas_width() // 2, get_canvas_height() // 2
+        # sx, sy = get_canvas_width() // 2, get_canvas_height() // 2
+        sx = self.x - server.background.window_left
+        sy = self.y - server.background.window_bottom
+
         # 소년을 한 가운데 그림.
         self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx, sy)
 
