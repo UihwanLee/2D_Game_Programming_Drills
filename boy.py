@@ -4,6 +4,7 @@ from pico2d import get_time, load_image, load_font, clamp, SDL_KEYDOWN, SDL_KEYU
     SDLK_UP, SDLK_DOWN, \
     draw_rectangle, get_canvas_width, get_canvas_height
 
+import server
 from ball import Ball
 import game_world
 import game_framework
@@ -275,6 +276,7 @@ class Boy:
         self.font = load_font('ENCR10B.TTF', 24)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.x, self.y = server.background.w // 2, server.background.h // 2
 
     def set_background(self, bg):
         # fill here

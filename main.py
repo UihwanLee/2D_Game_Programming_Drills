@@ -4,7 +4,7 @@ import game_framework
 
 import play_mode as start_mode
 
-open_canvas(1000, 1000)
+open_canvas(500, 500)
 game_framework.run(start_mode)
 close_canvas()
 
