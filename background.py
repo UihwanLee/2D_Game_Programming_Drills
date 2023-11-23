@@ -9,15 +9,18 @@ class FixedBackground:
     def __init__(self):
         self.image = load_image('futsal_court.png')
         # fill here
-        pass
+        self.cw = get_canvas_width()
+        self.ch = get_canvas_height()
 
     def draw(self):
         # fill here
-        pass
+        self.image.clip_draw(self.window_left, self.window_bottom,
+                             self.cw, self.ch, 0, 0)
 
     def update(self):
         # fill here
-        pass
+        self.window_left = int(server.boy.x) - self.cw // 2
+        self.window_bottom = int(server.boy.y) - self.ch // 2
 
     def handle_event(self, event):
         pass
