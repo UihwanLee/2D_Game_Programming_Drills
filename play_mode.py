@@ -10,6 +10,7 @@ import server
 from boy import Boy
 
 # fill here
+from background import FixedBackground as Background
 
 
 
@@ -28,7 +29,12 @@ def handle_events():
 
 def init():
     # fill here
-    pass
+    server.background = Background()
+    game_world.add_object(server.background, 0)
+
+    server.boy = Boy()
+    game_world.add_object(server.boy, 1)
+
 
 def finish():
     game_world.clear()
