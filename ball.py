@@ -17,11 +17,14 @@ class Ball:
         draw_rectangle(*self.get_bb())
 
     def update(self):
+        # Ball 위치 업데이트
         pass
 
     def get_bb(self):
         return self.x - 10, self.y - 10, self.x + 10, self.y + 10
 
     def handle_collision(self, group, other):
-	    pass
+        match group:
+            case 'boy:ball':
+                game_world.remove_object(self)
 
